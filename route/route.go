@@ -26,9 +26,9 @@ func Register(deps Dependencies) {
 	api := deps.App.Group("/api/v1", middleware.RequireJSON)
 
 	// Diaktifkan setelah modul masing-masing siap:
-	// registerAuthRoutes(api, deps)
+	registerAuthRoutes(api, deps)
 	registerSlotBookingRoutes(api, deps)
-	// registerNoteRoutes(api, deps)
+	registerNoteRoutes(api, deps)
 }
 
 func healthCheck(c *fiber.Ctx) error {
