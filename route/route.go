@@ -27,9 +27,8 @@ func Register(deps Dependencies) {
 
 	// Diaktifkan setelah modul masing-masing siap:
 	// registerAuthRoutes(api, deps)
-	// registerSlotBookingRoutes(api, deps)
+	registerSlotBookingRoutes(api, deps)
 	// registerNoteRoutes(api, deps)
-	_ = api
 }
 
 func healthCheck(c *fiber.Ctx) error {
