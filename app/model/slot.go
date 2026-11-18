@@ -26,4 +26,3 @@ type UpdateCapacityRequest struct {
 	Capacity int `json:"capacity"`
 	Version  int `json:"version"`
 }
-

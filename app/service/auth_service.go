@@ -165,23 +165,22 @@ func (s *AuthService) Me(c *fiber.Ctx) error {
 	return helper.Success(c, fiber.StatusOK, "data pengguna berhasil diambil", toMeResponse(user))
 }
 
-
 func (s *AuthService) Refresh(c *fiber.Ctx) error {
 	var req model.RefreshRequest
 
 	if err := c.BodyParser(&req); err != nil {
-		return helper.Fail(c,fiber.StatusUnprocessableEntity,helper.CodeValidation,"format request tidak valid")
+		return helper.Fail(c, fiber.StatusUnprocessableEntity, helper.CodeValidation, "format request tidak valid")
 	}
 
 	if strings.TrimSpace(req.RefreshToken) == "" {
-		return helper.Fail(c,fiber.StatusUnprocessableEntity,helper.CodeValidation,"refresh_token wajib diisi")
+		return helper.Fail(c, fiber.StatusUnprocessableEntity, helper.CodeValidation, "refresh_token wajib diisi")
 	}
 
 	oldHash := hashToken(req.RefreshToken)
 
 	newRawToken, newHash, err := generateRefreshToken()
 	if err != nil {
-		return helper.Fail(c,fiber.StatusInternalServerError,helper.CodeInternal,"gagal membuat refresh token")
+		return helper.Fail(c, fiber.StatusInternalServerError, helper.CodeInternal, "gagal membuat refresh token")
 	}
 
 	ctx := c.UserContext()
@@ -229,19 +228,18 @@ func (s *AuthService) Refresh(c *fiber.Ctx) error {
 
 	if err != nil {
 		if errors.Is(err, repository.ErrRefreshTokenInvalid) {
-			return helper.Fail(c, fiber.StatusUnauthorized, helper.CodeUnauthorized,"refresh token tidak valid atau sudah digunakan")
+			return helper.Fail(c, fiber.StatusUnauthorized, helper.CodeUnauthorized, "refresh token tidak valid atau sudah digunakan")
 		}
 
 		if errors.Is(err, repository.ErrUserNotFound) {
-			return helper.Fail(c,fiber.StatusUnauthorized,helper.CodeUnauthorized,"pengguna tidak ditemukan")
+			return helper.Fail(c, fiber.StatusUnauthorized, helper.CodeUnauthorized, "pengguna tidak ditemukan")
 		}
 
-		return helper.Fail(c,fiber.StatusInternalServerError,helper.CodeInternal,"gagal memperbarui token")
+		return helper.Fail(c, fiber.StatusInternalServerError, helper.CodeInternal, "gagal memperbarui token")
 	}
 
-	return helper.Success(c,fiber.StatusOK,"token berhasil diperbarui",response)
+	return helper.Success(c, fiber.StatusOK, "token berhasil diperbarui", response)
 }
-
 
 func (s *AuthService) Logout(c *fiber.Ctx) error {
 	var req model.RefreshRequest

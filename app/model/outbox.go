@@ -13,4 +13,3 @@ type BookingEventPayload struct {
 	OldSlotID int64 `json:"old_slot_id,omitempty"`
 	NewSlotID int64 `json:"new_slot_id,omitempty"`
 }
-

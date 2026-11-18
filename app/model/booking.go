@@ -43,4 +43,3 @@ type SwapRequest struct {
 type UpdateBookingStatusRequest struct {
 	Status string `json:"status"`
 }
-
